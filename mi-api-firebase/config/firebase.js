@@ -4,7 +4,13 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const serviceAccount = JSON.parse(process.env.FIREBASE_CONFIG || '{}');
+let serviceAccount = {};
+try {
+  serviceAccount = JSON.parse(process.env.FIREBASE_CONFIG || '{}');
+} catch (error) {
+  console.error('Invalid FIREBASE_CONFIG JSON:', error);
+  serviceAccount = {};
+}
 
 if (!admin.apps.length) {
   admin.initializeApp({

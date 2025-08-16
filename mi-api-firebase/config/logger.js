@@ -1,5 +1,13 @@
 import winston from 'winston';
 import expressWinston from 'express-winston';
+import fs from 'fs';
+import path from 'path';
+
+// Ensure 'logs' directory exists
+const logsDir = path.resolve('logs');
+if (!fs.existsSync(logsDir)) {
+  fs.mkdirSync(logsDir);
+}
 
 const { combine, timestamp, printf, colorize } = winston.format;
 

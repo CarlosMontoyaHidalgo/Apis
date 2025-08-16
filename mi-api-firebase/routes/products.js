@@ -96,7 +96,9 @@ router.get('/', async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
   const minPrice = parseFloat(req.query.minPrice) || 0;
-  const maxPrice = parseFloat(req.query.maxPrice) || Infinity;
+  const maxPrice = (req.query.maxPrice === undefined || req.query.maxPrice === '') 
+    ? Infinity 
+    : parseFloat(req.query.maxPrice);
 
   try {
     const products = await getAllProducts();
